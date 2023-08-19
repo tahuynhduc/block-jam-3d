@@ -12,4 +12,13 @@ public class MatrixPosition : MonoBehaviour
     {
         Reset();
     }
+
+    private void Start()
+    {
+        //foreach(var test in _maxtrixPosition)
+        //{
+        //    //Debug.Log("test:"+test);
+        //    //for(var check in test.)
+        //}
+    }
 }

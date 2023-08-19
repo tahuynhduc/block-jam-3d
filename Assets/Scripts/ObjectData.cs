@@ -19,13 +19,13 @@ public class ObjectData : MonoBehaviour
     private void OnMouseDown()
     {
         MoveToQueue();
+        gameObject.GetComponent<Collider>().enabled = false;
     }
 
     public void SetPositionData(WaitPositionData positionData)
     {
         WaitPosition = positionData;
         transform.position = positionData.Position;
-        gameObject.GetComponent<Collider>().enabled = false;
     }
 
     private void MoveToQueue()
@@ -34,6 +34,7 @@ public class ObjectData : MonoBehaviour
     }
     public void DoMatching()
     {
+        Debug.Log(" detroy:" + gameObject.name);
         Destroy(gameObject);
     }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class ListPosition : MonoBehaviour
 {
     [SerializeField] List<PositionObject> _positionObject;
+    //public 
     private void Reset()
     {
         _positionObject = new List<PositionObject>(transform.GetComponentsInChildren<PositionObject>());
