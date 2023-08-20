@@ -91,22 +91,20 @@ public class WaitLineController : MonoBehaviour
     {
         for (int i = 0; i < WaitPosition.Count; i++)
         {
-            if (WaitPosition[i]._objectData == null)
-                return;
-            for (int j = i; j < WaitPosition.Count; j++)
-            {
-                if (WaitPosition[j]._objectData == null)
-                    return;
-                if (WaitPosition[j]._objectData.objectType == WaitPosition[i]._objectData.objectType && j > i)
+            if (WaitPosition[i]._objectData != null)
+                for (int j = i; j < WaitPosition.Count; j++)
                 {
-                    var swapPosition = WaitPosition[i += 1]._objectData;
-                    WaitPosition[i]._objectData = WaitPosition[j]._objectData;
-                    WaitPosition[j]._objectData = swapPosition;
-                    WaitPosition[i]._objectData.SetPositionData(WaitPosition[i]);
-                    WaitPosition[j]._objectData.SetPositionData(WaitPosition[j]);
-                    i++;
+                    if (WaitPosition[j]._objectData != null)
+                        if (WaitPosition[j]._objectData.objectType == WaitPosition[i]._objectData.objectType && j > i)
+                        {
+                            var swapPosition = WaitPosition[i += 1]._objectData;
+                            WaitPosition[i]._objectData = WaitPosition[j]._objectData;
+                            WaitPosition[j]._objectData = swapPosition;
+                            WaitPosition[i]._objectData.SetPositionData(WaitPosition[i]);
+                            WaitPosition[j]._objectData.SetPositionData(WaitPosition[j]);
+                        }
+
                 }
-            }
         }
     }
     private void UpdatePositionInQueue()
