@@ -1,41 +1,60 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
-
-public class ObjectData : MonoBehaviour
+public class ObjectData : Element<Transform, ElementType, ObjectData>
+//MonoBehaviour
 {
-
-    [SerializeField] ObjectType _objectType;
-    WaitLineController _listWait;
+    #region private
+    [SerializeField] ElementType _elementType;
     WaitPositionData _waitPosition;
-    public ObjectType objectType { get => _objectType; }
+    TestGameBoard gameBoard;
+    [SerializeField]
+    private bool _selectable;
+    public int ádasd;
+    #endregion
+    public ElementType Type { get => _elementType; }
     public WaitPositionData WaitPosition { get => _waitPosition; private set => _waitPosition = value; }
+    public bool Selectable { get => _selectable; set => _selectable = value; }
 
-    private void Start()
+    public int[,] test;
+    [SerializeField] private List<Mesh> meshes;
+
+    private void Awake()
     {
-        _listWait = FindObjectOfType<WaitLineController>();
+        gameBoard = FindObjectOfType<TestGameBoard>();
     }
     private void OnMouseDown()
     {
+        if (!Selectable)
+            return;
         MoveToQueue();
-        gameObject.GetComponent<Collider>().enabled = false;
-    }
 
+    }
+    private void MoveToQueue()
+    {
+        gameBoard.SetStateObjOnMatrix(this);
+    }
+    public void DoMatching()
+    {
+        gameObject.SetActive(false);
+    }
     public void SetPositionData(WaitPositionData positionData)
     {
         WaitPosition = positionData;
         transform.position = positionData.Position;
     }
 
-    private void MoveToQueue()
+    public void SetState(bool selectable)
     {
-        _listWait.AddTolist(this);
-    }
-    public void DoMatching()
-    {
-        Debug.Log(" detroy:" + gameObject.name);
-        Destroy(gameObject);
+        Selectable = selectable;
+        if (!selectable)
+            ádasd = 1;
+        else
+            ádasd = 0;
+        gameObject.GetComponent<MeshFilter>().mesh = meshes[ádasd];
+
     }
 
 }
