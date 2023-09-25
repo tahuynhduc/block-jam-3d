@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1833395237070050
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4411221832738747}
+  - component: {fileID: 114181440165649528}
+  m_Layer: 0
+  m_Name: LevelLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4411221832738747
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833395237070050}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114181440165649528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833395237070050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc530482c6d2893c9756fbb3a530671d, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  gridSpacing: 1.7
+  levelPrefab: {fileID: 1685275918074982, guid: 5b5ec19a89eb388408f3a8f7d635d1b0, type: 2}
+  wallPrefab: {fileID: 1010339381794852, guid: fb47a336ec076f643b5e607e109e5925, type: 2}
+  gridSpotWallPrefab: {fileID: 1771868024780850, guid: 54101dc1d63eeac4ca186af896a61307, type: 2}
+  gridSpotRaisedWallPrefab: {fileID: 1711351086535913, guid: 20e9ca8cb8d57f24fadea6888405f21d, type: 2}
+  useRaisedWalls: 0
+  mapDataList: {fileID: 11400000, guid: ea73b22d8d3d0a74bab318e6d574c129, type: 2}
+  loopingMapDataList: {fileID: 11400000, guid: 7cd29392f5db2eb44b7b01b0735e2a48, type: 2}
+  bossMapDataGroupList: {fileID: 11400000, guid: ac3f72d690586c044b90681912e4d96b, type: 2}
+  loopingBossMapDataGroupList: {fileID: 11400000, guid: ac3f72d690586c044b90681912e4d96b, type: 2}
+  bossLevelSpacing: 10
+  groupSectionSpacing: 29.5
+  ground: {fileID: 132, guid: 9aaf683ef0bd8aa4ab2fbdf1ad68cede, type: 2}
+  bombTutorial: {fileID: 8037, guid: 9aaf683ef0bd8aa4ab2fbdf1ad68cede, type: 2}
+  fasterProgressionAB: {fileID: 11400000, guid: 62458c0608283ba4bb641612698ad7a1, type: 2}
+  newOnboardingAB: {fileID: 11400000, guid: 296a0267fb52705488dd913c1996669f, type: 2}
+  hardProgressionAB: {fileID: 11400000, guid: cacdade061616444f9ab6c3ae7f74f50, type: 2}
+  bombsAB: {fileID: 11400000, guid: 211837ff9f7bbd04697d823bbf347dd2, type: 2}
+  bossAB: {fileID: 11400000, guid: d621928bbc272834987e267ef60cae8c, type: 2}
+  loopingFasterProgressionAB: {fileID: 11400000, guid: 7cd29392f5db2eb44b7b01b0735e2a48, type: 2}
+  loopingNewOnboardingAB: {fileID: 11400000, guid: 7cd29392f5db2eb44b7b01b0735e2a48, type: 2}
+  loopingHardProgressionAB: {fileID: 11400000, guid: 742e87eb51803d64ca71096ce84ffaf7, type: 2}
+  loopingBombsAB: {fileID: 11400000, guid: 30183727b4154f5478dc1d784d601ac0, type: 2}
+  loopingBossAB: {fileID: 11400000, guid: 4bbefab68d3bb7342b1b50a647bf7512, type: 2}
+  iapFocusedGroupList: {fileID: 11400000, guid: 5587f43746acabb4b981e22a053b5320, type: 2}
+  iapFocusedLoopingGroupList: {fileID: 11400000, guid: 94703b9d11eeeca46860dc64594c5745, type: 2}
+  iapFocusedFirst3GroupList: {fileID: 11400000, guid: b40422172bc591e4e9b67d477bb1734d, type: 2}
+  icePlusSet1GroupList: {fileID: 11400000, guid: 304184688f51ef04bb85754184039fd0, type: 2}
+  icePlusSet1LoopingGroupList: {fileID: 11400000, guid: a292ec9335d10e14fb8e8074d81767a2, type: 2}
+  set1GroupList: {fileID: 11400000, guid: 832ae6c75df31fd4e95439b40a0dcf63, type: 2}
+  set1LoopingGroupList: {fileID: 11400000, guid: de0c5d3955031a8449481c2502f1c3f0, type: 2}
+  set2GroupList: {fileID: 11400000, guid: 1f7c8fae81e506946bf69408bd666170, type: 2}
+  set2LoopingGroupList: {fileID: 11400000, guid: 23a4b4d30e8851b499aa3787dcbc5af6, type: 2}
+  locksMapSet2GroupList: {fileID: 11400000, guid: 4f3a723e3294af4438b144867b2d61e4, type: 2}
+  locksMapSet2LoopingGroupList: {fileID: 11400000, guid: 664a10bb9a09ca845b5a53f4c64a4bee, type: 2}
+  iceMapSet2GroupList: {fileID: 11400000, guid: 35affca91ac9a3348a0f0f294f30a12f, type: 2}
+  iceMapSet2LoopingGroupList: {fileID: 11400000, guid: 2ef2bf767eb7fbf46995d306541382c6, type: 2}
+  newOnboardingGroupList: {fileID: 11400000, guid: 59bda5d746307d44a971fb410cc6a5a7, type: 2}
+  newOnboardingWithLevelsGroupList: {fileID: 11400000, guid: ff03961a0d35e3b4ebf1b98feec34c2e, type: 2}
+  set3GroupList: {fileID: 11400000, guid: 7877899a568ca454e8e16c6cface5f68, type: 2}
+  set3LoopingGroupList: {fileID: 11400000, guid: 01bc0538c075c5c42b03f0e3b4afb2e9, type: 2}
+  iceSet3GroupList: {fileID: 11400000, guid: 027bde9f5b2f9ee4e81dffae7535a9bf, type: 2}
+  iceSet3LoopingGroupList: {fileID: 11400000, guid: 9bd0fda036b12764baa9251813905f41, type: 2}
+  set4GroupList: {fileID: 11400000, guid: c1034e1f22886f34482507f0d86ccf83, type: 2}
+  set4LoopingGroupList: {fileID: 11400000, guid: 6d1befe00281f4648a7385db7cc30c24, type: 2}
+  iceSet4GroupList: {fileID: 11400000, guid: 612d29c5d764dd847821712aa5011609, type: 2}
+  iceSet4LoopingGroupList: {fileID: 11400000, guid: b15b6278e5d03e14fbc3701b29c50c3b, type: 2}
+  propSpawner: {fileID: 8078, guid: 9aaf683ef0bd8aa4ab2fbdf1ad68cede, type: 2}
+  iceTutorial:
+    mapDataSections:
+    - {fileID: 11400000, guid: 382ba43a3075f5647b27f291b3d5b605, type: 2}
+    - {fileID: 11400000, guid: 093a8369fd3e69e4598e4526968bc998, type: 2}
+    - {fileID: 11400000, guid: ab7b5d4916a3dda4192ab2aa7ca2c078, type: 2}
+  lockAndKeyTutorial:
+    mapDataSections:
+    - {fileID: 11400000, guid: 9428e7e183adf744b80dd630ac99b5ad, type: 2}
+    - {fileID: 11400000, guid: ec29859b0b43e6b47894820f95c9f8dc, type: 2}
+    - {fileID: 11400000, guid: e042e9dbe05040d4fabc5eb13d52991d, type: 2}

@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1427074117562658
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4097226498323215}
+  - component: {fileID: 114508028733327070}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4097226498323215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427074117562658}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114508028733327070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427074117562658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa3f1a2d47bf9479853f992a9cd99dc9, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  state: 1
+  menuUI: {fileID: 8097, guid: 9aaf683ef0bd8aa4ab2fbdf1ad68cede, type: 2}
+  playingUI: {fileID: 8094, guid: 9aaf683ef0bd8aa4ab2fbdf1ad68cede, type: 2}
+  gameOverUI: {fileID: 8797, guid: 9aaf683ef0bd8aa4ab2fbdf1ad68cede, type: 2}
+  persistentUI: {fileID: 32, guid: 9aaf683ef0bd8aa4ab2fbdf1ad68cede, type: 2}
+  grid: {fileID: 0}
+  tray: {fileID: 8051, guid: 9aaf683ef0bd8aa4ab2fbdf1ad68cede, type: 2}
+  secondaryTray: {fileID: 8095, guid: 9aaf683ef0bd8aa4ab2fbdf1ad68cede, type: 2}
+  tutorial: {fileID: 7985, guid: 9aaf683ef0bd8aa4ab2fbdf1ad68cede, type: 2}
+  cameraRoot: {fileID: 2649, guid: 9aaf683ef0bd8aa4ab2fbdf1ad68cede, type: 2}
+  panFromGroupSection: 0
+  moveManager: {fileID: 8069, guid: 9aaf683ef0bd8aa4ab2fbdf1ad68cede, type: 2}
+  blockPrefab: {fileID: 1674096600232664, guid: 25fbb7fed22507b43818a2b74294a621, type: 2}
+  blockSpherePrefab: {fileID: 1299021430280250, guid: e4777afd40523154e85268c53013aa9f, type: 2}
+  diorama: {fileID: 0}
+  dioramaShadow: {fileID: 25, guid: 9aaf683ef0bd8aa4ab2fbdf1ad68cede, type: 2}
+  dioramaPopup: {fileID: 1674, guid: 9aaf683ef0bd8aa4ab2fbdf1ad68cede, type: 2}
+  dioramaLighting: {fileID: 1164, guid: 9aaf683ef0bd8aa4ab2fbdf1ad68cede, type: 2}

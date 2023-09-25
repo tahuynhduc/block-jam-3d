@@ -1,0 +1,364 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1802998608835868
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4974138518387250}
+  - component: {fileID: 114427680857694600}
+  - component: {fileID: 114455682472125654}
+  - component: {fileID: 114629447893168044}
+  - component: {fileID: 114348243699181050}
+  - component: {fileID: 114769995465567787}
+  - component: {fileID: 114817734915382481}
+  - component: {fileID: 114972333890637885}
+  m_Layer: 0
+  m_Name: LeaguesManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4974138518387250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802998608835868}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114427680857694600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802998608835868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8485e348a190bbe822bc7c66ecf87bbc, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  rewards: {fileID: 11400000, guid: 2232acab86c9da746896f87eff5bf132, type: 2}
+  LeagueStartDay: 0
+  ExpiredLeague: 0
+  LostRanking: 0
+  LEAGUE_KEY: CurrentLeague
+  newLeague: 0
+  oldLeague: 0
+  score: 0
+  rewardToBeGained: {fileID: 0}
+  rankFound: 0
+  debugExtraHoursPerSim: 0
+  playerRank: 99
+--- !u!114 &114455682472125654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802998608835868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50decc0481eb666be3cd42be241769ab, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  tag: 0
+  NumSimPlayers: 99
+  BaseRatePerHour: 0.12
+  PromotionRank: 29
+  DemotionRank: 101
+  PresimulationDuration: 0.9
+  UnsimulationMagnitude: 0
+  RateDistribution:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.25089234
+      inSlope: 0.15009716
+      outSlope: 0.15009716
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.31343284
+    - serializedVersion: 3
+      time: 0.8701337
+      value: 1
+      inSlope: 34.005684
+      outSlope: 2.4756284
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.0199005
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  details:
+    trophyIcon: {fileID: 21300000, guid: c0f27a57b067f914f912ab7382e80ed3, type: 2}
+    color: {r: 0.72156864, g: 0.3529412, b: 0.13333334, a: 1}
+    reward:
+      type: {fileID: 0}
+      amount: 0
+  scores: []
+--- !u!114 &114629447893168044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802998608835868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50decc0481eb666be3cd42be241769ab, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  tag: 1
+  NumSimPlayers: 99
+  BaseRatePerHour: 0.18
+  PromotionRank: 24
+  DemotionRank: 80
+  PresimulationDuration: 0.16
+  UnsimulationMagnitude: 0
+  RateDistribution:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.25089234
+      inSlope: 0.15009716
+      outSlope: 0.15009716
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.31343284
+    - serializedVersion: 3
+      time: 0.8701337
+      value: 1
+      inSlope: 34.005684
+      outSlope: 2.4756284
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.0199005
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  details:
+    trophyIcon: {fileID: 21300000, guid: 5f8c80b6a81b797419ca10191c7439ab, type: 2}
+    color: {r: 0.7019608, g: 0.83921576, b: 0.86274517, a: 1}
+    reward:
+      type: {fileID: 0}
+      amount: 0
+  scores: []
+--- !u!114 &114348243699181050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802998608835868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50decc0481eb666be3cd42be241769ab, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  tag: 2
+  NumSimPlayers: 99
+  BaseRatePerHour: 0.255
+  PromotionRank: 24
+  DemotionRank: 75
+  PresimulationDuration: 0.16
+  UnsimulationMagnitude: 0
+  RateDistribution:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.25089234
+      inSlope: 0.15009716
+      outSlope: 0.15009716
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.31343284
+    - serializedVersion: 3
+      time: 0.8701337
+      value: 1
+      inSlope: 34.005684
+      outSlope: 2.4756284
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.0199005
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  details:
+    trophyIcon: {fileID: 21300000, guid: 94604fbb741b99340b6492ff0bf0afa1, type: 2}
+    color: {r: 0.9490197, g: 0.78823537, b: 0.011764707, a: 1}
+    reward:
+      type: {fileID: 0}
+      amount: 0
+  scores: []
+--- !u!114 &114769995465567787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802998608835868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50decc0481eb666be3cd42be241769ab, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  tag: 3
+  NumSimPlayers: 99
+  BaseRatePerHour: 0.43
+  PromotionRank: 14
+  DemotionRank: 70
+  PresimulationDuration: 0.16
+  UnsimulationMagnitude: 0
+  RateDistribution:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.1097561
+      inSlope: 0.32682925
+      outSlope: 0.32682925
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.29850745
+    - serializedVersion: 3
+      time: 0.94844556
+      value: 1.003619
+      inSlope: 190.57014
+      outSlope: 2.4756284
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.00497514
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  details:
+    trophyIcon: {fileID: 21300000, guid: 8153002fadb86c14dae4f72a647b572a, type: 2}
+    color: {r: 0.14117648, g: 0.93725497, b: 0.5529412, a: 1}
+    reward:
+      type: {fileID: 0}
+      amount: 0
+  scores: []
+--- !u!114 &114817734915382481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802998608835868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50decc0481eb666be3cd42be241769ab, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  tag: 4
+  NumSimPlayers: 99
+  BaseRatePerHour: 0.675
+  PromotionRank: 9
+  DemotionRank: 65
+  PresimulationDuration: 0.16
+  UnsimulationMagnitude: 0
+  RateDistribution:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.1097561
+      inSlope: 0.32682925
+      outSlope: 0.32682925
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.29850745
+    - serializedVersion: 3
+      time: 0.9701492
+      value: 1
+      inSlope: 190.57014
+      outSlope: 2.4756284
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.00497514
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  details:
+    trophyIcon: {fileID: 21300000, guid: 9eb764fec9b27d54c870a3f8011507dc, type: 2}
+    color: {r: 0.9921569, g: 0.19215688, b: 0.32941177, a: 1}
+    reward:
+      type: {fileID: 0}
+      amount: 0
+  scores: []
+--- !u!114 &114972333890637885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802998608835868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50decc0481eb666be3cd42be241769ab, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  tag: 5
+  NumSimPlayers: 99
+  BaseRatePerHour: 1.15
+  PromotionRank: -1
+  DemotionRank: 50
+  PresimulationDuration: 0.16
+  UnsimulationMagnitude: 0
+  RateDistribution:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.1097561
+      inSlope: 0.32682925
+      outSlope: 0.32682925
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.29850745
+    - serializedVersion: 3
+      time: 0.96416444
+      value: 1
+      inSlope: 190.57014
+      outSlope: 2.4756284
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.00497514
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  details:
+    trophyIcon: {fileID: 21300000, guid: fd2b086721e71674399cee7509761e7c, type: 2}
+    color: {r: 0.5568628, g: 0.8980393, b: 0.9921569, a: 1}
+    reward:
+      type: {fileID: 0}
+      amount: 0
+  scores: []
