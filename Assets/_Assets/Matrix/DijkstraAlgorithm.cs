@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 
 [Serializable]
-public class DijkstraAlgorithm : MonoBehaviour
+public class DijkstraAlgorithm
 {
     private readonly int _verticesCount;
     private readonly List<List<Tuple<int, int>>> _vertices;
@@ -31,16 +31,10 @@ public class DijkstraAlgorithm : MonoBehaviour
         var log = new StringBuilder();
         for (int i = 0; i < _vertices.Count; i++)
         {
-            //Debug.Log(_vertices[i].ToString());
-            //for (int j = 0; j < _vertices.Count; j++)
-            //{
-            //    _vertices[j].
-            //}
             log.AppendLine($"\nsource: {i}:\nedges: {_vertices[i].Count}\n");
             foreach (var edge in _vertices[i])
             {
                 log.AppendLine($"-> destination {edge.Item1} - weight: {edge.Item2}");
-                //Debug.Log(test[i].Item2);
             }
         }
         Debug.Log(log.ToString());

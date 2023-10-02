@@ -1,60 +1,60 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.Events;
+
 public class ObjectData : Element<Transform, ElementType, ObjectData>
 //MonoBehaviour
 {
     #region private
     [SerializeField] ElementType _elementType;
-    WaitPositionData _waitPosition;
-    TestGameBoard gameBoard;
-    [SerializeField]
-    private bool _selectable;
-    public int ádasd;
+    [SerializeField] bool _selectable;
+    [SerializeField] GameObject[] _stateObj;
+    GameBoardController gameBoard => FindObjectOfType<GameBoardController>();
+    bool _objInQueueSecond;
     #endregion
-    public ElementType Type { get => _elementType; }
-    public WaitPositionData WaitPosition { get => _waitPosition; private set => _waitPosition = value; }
+    public ElementType Type { get => _elementType; set => _elementType = value; }
     public bool Selectable { get => _selectable; set => _selectable = value; }
+    public bool ObjInQueueSecond { get => _objInQueueSecond; set => _objInQueueSecond = value; }
 
-    public int[,] test;
-    [SerializeField] private List<Mesh> meshes;
-
-    private void Awake()
+    public int label;
+    private void Start()
     {
-        gameBoard = FindObjectOfType<TestGameBoard>();
+        label = GetVerticeLabel(Index);
     }
+
     private void OnMouseDown()
     {
         if (!Selectable)
             return;
         MoveToQueue();
-
     }
     private void MoveToQueue()
     {
-        gameBoard.SetStateObjOnMatrix(this);
+        gameBoard.SetStateObjOnMatrix(this, ObjInQueueSecond);
     }
-    public void DoMatching()
+    public bool isMatching;
+    public void DoMatching(bool state)
     {
-        gameObject.SetActive(false);
+        isMatching = state;
+        gameObject.SetActive(!state);
     }
-    public void SetPositionData(WaitPositionData positionData)
+    public void ClickObjOnEnable(bool state)
     {
-        WaitPosition = positionData;
-        transform.position = positionData.Position;
+        GetComponent<Collider>().enabled = state;
     }
-
     public void SetState(bool selectable)
     {
         Selectable = selectable;
-        if (!selectable)
-            ádasd = 1;
-        else
-            ádasd = 0;
-        gameObject.GetComponent<MeshFilter>().mesh = meshes[ádasd];
-
+        _stateObj[0].SetActive(selectable);
+        _stateObj[1].SetActive(!selectable);
+    }
+    private int GetVerticeLabel(MatrixIndex matrixIndex)
+    {
+        return matrixIndex.Row * Column + matrixIndex.Column;
     }
 
+    public void SetTranform(Transform transMatrix)
+    {
+        transform.position = transMatrix.position;
+    }
 }

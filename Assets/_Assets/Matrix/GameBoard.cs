@@ -49,6 +49,14 @@ public class GameBoard<TTransform, TElementType, TElement> : MonoBehaviour where
         CreateElementMatrix();
         _dictionary.Add(typeof(TElement), ElementMatrix);
     }
+    public void CreateUI()
+    {
+        _dictionary = new Dictionary<Type, object>();
+        _dictionary.Add(typeof(TTransform), TransformMatrix);
+        _dictionary.Add(typeof(TElementType), ElementTypeMatrix);
+        CreateUIMatrix();
+        _dictionary.Add(typeof(TElement), ElementMatrix);
+    }
     public void LoadTypeElementMatrix(TElementType[,] elementTypes)
     {
         var row = elementTypes.GetUpperBound(0);
@@ -59,8 +67,24 @@ public class GameBoard<TTransform, TElementType, TElement> : MonoBehaviour where
             for (var j = 0; j < column; j++)
                 ElementTypeMatrix.Set(i, j, elementTypes[i, j]);
     }
-
-    public void CreateElementMatrix()
+    private void CreateUIMatrix()
+    {
+        ElementMatrix = new Matrix<TElement>(Row, Column);
+        for (var i = 0; i < Row; i++)
+            for (var j = 0; j < Column; j++)
+            {
+                var index = new MatrixIndex(i, j);
+                var elementType = At<UIType>(index);
+                if (elementType == UIType.None)
+                    continue;
+                var elementPfb = GetElementPfb(elementType);
+                var elementTransform = At<Transform>(index);
+                var element = Instantiate(elementPfb, elementTransform).GetComponent<TElement>();
+                element.Index = index;
+                ElementMatrix.Set(index, element);
+            }
+    }
+    private void CreateElementMatrix()
     {
         ElementMatrix = new Matrix<TElement>(Row, Column);
         for (var i = 0; i < Row; i++)
@@ -77,12 +101,22 @@ public class GameBoard<TTransform, TElementType, TElement> : MonoBehaviour where
                 ElementMatrix.Set(index, element);
             }
     }
+    public void CreateMaxtrix()
+    {
+        _dictionary = new Dictionary<Type, object>();
+        _dictionary.Add(typeof(TTransform), TransformMatrix);
+        _dictionary.Add(typeof(TElementType), ElementTypeMatrix);
+        _dictionary.Add(typeof(TElement), ElementMatrix);
+    }
     private GameObject GetElementPfb(ElementType elementType)
     {
         return _elementPfbs[(int)elementType];
     }
-
-    private void Set<T>(int row, int column, T element)
+    private GameObject GetElementPfb(UIType elementType)
+    {
+        return _elementPfbs[(int)elementType];
+    }
+    public void Set<T>(int row, int column, T element)
     {
         GetMatrix<T>().Set(row, column, element);
     }

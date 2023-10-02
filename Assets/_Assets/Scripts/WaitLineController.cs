@@ -1,51 +1,116 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class WaitLineController : MonoBehaviour
+public class WaitLineController : GameBoard<Transform, TypeWaitQueue, ObjectData>
 {
     #region private
-    [SerializeField] List<WaitPositionData> _listWaitPosition;
     [SerializeField] List<WaitType> _waitTypes;
+    [SerializeField] List<ObjectData> _waitQueueSecond = new List<ObjectData>();
+    [SerializeField] List<ObjectData> _waitQueueFirst = new List<ObjectData>();
+    int _lengthSecondWaitQueue;
     #endregion
-    #region property
-    public List<WaitPositionData> WaitPosition { get => _listWaitPosition; set => _listWaitPosition = value; }
-    public List<WaitType> WaitTypes { get => _waitTypes; set => _waitTypes = value; }
-    #endregion
-    private void Reset()
+    private void Awake()
     {
-        WaitPosition = new List<WaitPositionData>(GetComponentsInChildren<WaitPositionData>());
+        CreateMaxtrix();
     }
-    private WaitPositionData GetPositionData()
+    private void Update()
     {
-        for (int i = 0; i < WaitPosition.Count; i++)
-            if (!WaitPosition[i]._objectData)
+        CheckGameOver();
+    }
+    #region Item
+
+    private void SetObjInWaitQueue(ObjectData obj)
+    {
+        if (!_waitQueueSecond.Contains(obj))
+            _waitQueueSecond.Add(obj);
+
+        var objData = _waitTypes[(int)obj.Type].FindObjOnWaitQueue(obj);
+        _waitTypes[(int)obj.Type].RemoveObjToWaitQueue(objData);
+    }
+    public void MoveObjToSecondQueue(bool state)
+    {
+        var count = 0;
+        if (WaitQueueSeconIsOnEnable())
+            return;
+        for (int i = _waitQueueFirst.Count - 1; i >= 0; i--)
+        {
+            if (_waitQueueFirst[i] && count <= 2)
             {
-                return WaitPosition[i];
+                count++;
+                SetObjInWaitQueue(_waitQueueFirst[i]);
+                _waitQueueFirst[i] = null;
             }
-        return null;
+        }
+        UpdateNewPosition(state);
     }
+
+    public bool WaitQueueSeconIsOnEnable()
+    {
+        return _waitQueueSecond.Count > 0;
+    }
+
+    private void UpdateNewPosition(bool state)
+    {
+        _waitQueueSecond.Reverse();
+        for (int i = 0; i < _waitQueueSecond.Count; i++)
+        {
+            Debug.Log("Test");
+            var newIndex = At<Transform>((int)TypeWaitQueue.ReserveWaitQueue, i);
+            _waitQueueSecond[i].SetTranform(newIndex);
+            _waitQueueSecond[i].ClickObjOnEnable(true);
+            _waitQueueSecond[i].ObjInQueueSecond = true;
+        }
+    }
+    public void UpdatePositionInWaitQueue(ObjectData objectData)
+    {
+        for (int i = 0; i < _waitQueueFirst.Count; i++)
+        {
+            if (_waitQueueFirst[i].label == objectData.label)
+            {
+                _waitQueueFirst[i] = null;
+                var objtype = _waitTypes[(int)objectData.Type].FindObjOnWaitQueue(objectData);
+                _waitTypes[(int)objectData.Type].RemoveObjToWaitQueue(objtype);
+                UpdatePositionInQueue();
+                break;
+            }
+        }
+    }
+    #endregion
     public void Add(ObjectData objectData)
     {
-        var positionData = GetPositionData();
-        objectData.SetPositionData(positionData);
-        if (!positionData._objectData)
+        if (_waitQueueSecond.Contains(objectData))
+            _waitQueueSecond.Remove(objectData);
+        for (int j = 0; j < Column; j++)
         {
-            positionData._objectData = objectData;
-            AddToWaitTypes(positionData._objectData);
+            if (_waitQueueFirst[j] == null)
+            {
+                _waitQueueFirst[j] = objectData;
+                var index = At<Transform>((int)TypeWaitQueue.MainQueue, j);
+                objectData.transform.position = index.position;
+                AddToWaitTypes(objectData);
+                return;
+            }
         }
     }
 
+    private void CheckGameOver()
+    {
+        if (_waitQueueFirst[_waitQueueFirst.Count - 1] != null)
+        {
+            Debug.Log("Gameover");
+        }
+    }
     private void AddToWaitTypes(ObjectData objectData)
     {
-        for (int i = 0; i < WaitTypes.Count; i++)
+        for (int i = 0; i < _waitTypes.Count; i++)
         {
             if (ObjectType(objectData) == i)
-                WaitTypes[ObjectType(objectData)].waitObject.Add(objectData);
+                _waitTypes[ObjectType(objectData)].SetTypeObj(objectData);
         }
-        UpdatePositionObjectSameType();
+        UpdatePositionObjectSameType(objectData);
         CheckOutQueue();
+        UpdatePositionInQueue();
     }
 
     private int ObjectType(ObjectData objectData)
@@ -55,53 +120,71 @@ public class WaitLineController : MonoBehaviour
 
     private void CheckOutQueue()
     {
-        for (int i = 0; i < WaitTypes.Count; i++)
-            if (IsMatchingLine(WaitTypes[i]))
-                RemoveMatchingWaitLine(WaitTypes[i]);
+        for (int i = 0; i < _waitTypes.Count; i++)
+            if (IsMatchingLine(_waitTypes[i]))
+            {
+                _waitTypes[i].RemoveMatchingWaitLine(IsMatchingLine(_waitTypes[i]));
+                ClearWaitQueue();
+            }
     }
-    private void RemoveMatchingWaitLine(WaitType waitType)
+    private void ClearWaitQueue()
     {
-        for (var i = waitType.waitObject.Count - 1; i >= 0; i--)
+        for (int i = 0; i < _waitQueueFirst.Count; i++)
         {
-            var objectData = waitType.waitObject[i];
-            var waitPosition = objectData.WaitPosition;
-            waitPosition.Reset();
-            objectData.DoMatching();
+            if (_waitQueueFirst[i] == null)
+                return;
+            if (_waitQueueFirst[i].isMatching)
+            {
+                _waitQueueFirst[i] = null;
+            }
         }
-        waitType.waitObject.Clear();
-        UpdatePositionInQueue();
     }
-    private void UpdatePositionObjectSameType()
+    private void UpdatePositionObjectSameType(ObjectData objData)
     {
-        for (int i = 0; i < WaitPosition.Count; i++)
-            if (WaitPosition[i]._objectData != null)
-                for (int j = i; j < WaitPosition.Count; j++)
-                    if (WaitPosition[j]._objectData != null)
-                        if (WaitPosition[j]._objectData.Type == WaitPosition[i]._objectData.Type && j > i)
-                        {
-                            var swapPosition = WaitPosition[i += 1]._objectData;
-                            WaitPosition[i]._objectData = WaitPosition[j]._objectData;
-                            WaitPosition[j]._objectData = swapPosition;
-                            WaitPosition[i]._objectData.SetPositionData(WaitPosition[i]);
-                            WaitPosition[j]._objectData.SetPositionData(WaitPosition[j]);
-                        }
-
+        for (int i = 0; i < _waitQueueFirst.Count; i++)
+        {
+            for (int j = i; j < _waitQueueFirst.Count; j++)
+                if (_waitQueueFirst[j] != null)
+                    if (_waitQueueFirst[j].Type == _waitQueueFirst[i].Type && j > i)
+                    {
+                        var swapPosition = _waitQueueFirst[i += 1];
+                        _waitQueueFirst[i] = _waitQueueFirst[j];
+                        _waitQueueFirst[j] = swapPosition;
+                        var index = At<Transform>((int)TypeWaitQueue.MainQueue, j);
+                        var currentIndex = At<Transform>((int)TypeWaitQueue.MainQueue, i);
+                        _waitQueueFirst[i].SetTranform(currentIndex);
+                        _waitQueueFirst[j].SetTranform(index);
+                    }
+        }
     }
     private void UpdatePositionInQueue()
     {
-        for (int i = 0; i < WaitPosition.Count; i++)
-            if (WaitPosition[i]._objectData != null)
-                for (int j = 0; j < i; j++)
-                    if (WaitPosition[j]._objectData == null)
+        for (int i = 0; i < _waitQueueFirst.Count; i++)
+        {
+            if (_waitQueueFirst[i] == null)
+            {
+                for (int j = i; j < _waitQueueFirst.Count; j++)
+                {
+                    if (_waitQueueFirst[j] != null)
                     {
-                        WaitPosition[j]._objectData = WaitPosition[i]._objectData;
-                        WaitPosition[j]._objectData.SetPositionData(WaitPosition[j]);
-                        WaitPosition[i].Reset();
+                        _waitQueueFirst[i] = _waitQueueFirst[j];
+                        var index = At<Transform>((int)TypeWaitQueue.MainQueue, i);
+                        _waitQueueFirst[j].SetTranform(index);
+                        _waitQueueFirst[j] = null;
                         break;
                     }
+                }
+
+            }
+        }
     }
     private bool IsMatchingLine(WaitType waitType)
     {
         return waitType.waitObject.Count > 2;
     }
+}
+public enum TypeWaitQueue
+{
+    MainQueue,
+    ReserveWaitQueue,
 }

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Element<TTransform, TElementType, TElement> : MonoBehaviour, IIndex where TElement : MonoBehaviour, IIndex
@@ -18,7 +17,6 @@ public class Element<TTransform, TElementType, TElement> : MonoBehaviour, IIndex
     public MatrixIndex Index { get => _index; set => _index = value; }
     public int Row => Index.Column;
     public int Column => Index.Row;
-
     public TElement At => GameBoard.At<TElement>(Index);
     public TElement Left => GameBoard.LeftOf<TElement>(Index);
     public TElement Right => GameBoard.RightOf<TElement>(Index);
@@ -28,11 +26,9 @@ public class Element<TTransform, TElementType, TElement> : MonoBehaviour, IIndex
     public TElement UpRight => GameBoard.UpRightOf<TElement>(Index);
     public TElement DownRight => GameBoard.DownRightOf<TElement>(Index);
     public TElement DownLeft => GameBoard.DownLeftOf<TElement>(Index);
-    public void SetIndexElementType(TElementType Type, TElement element)
+    public void SetIndexElementType(TElementType Type)
     {
         var IndexElementType = GameBoard.ElementTypeMatrix;
-        var IndexElement = GameBoard.ElementMatrix;
         IndexElementType.Set(Index, Type);
-        //IndexElement.Set(Index, element);
     }
 }

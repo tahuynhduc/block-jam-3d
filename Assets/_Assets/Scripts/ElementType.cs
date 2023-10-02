@@ -1,4 +1,3 @@
-
 public enum ElementType
 {
     None,
@@ -7,5 +6,5 @@ public enum ElementType
     OBJ3,
     OBJ4,
     OBJ5,
-    Block,
+    GROUND,
 }
