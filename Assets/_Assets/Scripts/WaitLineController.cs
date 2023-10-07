@@ -8,15 +8,18 @@ public class WaitLineController : GameBoard<Transform, TypeWaitQueue, ObjectData
     [SerializeField] List<WaitType> _waitTypes;
     [SerializeField] List<ObjectData> _waitQueueSecond = new List<ObjectData>();
     [SerializeField] List<ObjectData> _waitQueueFirst = new List<ObjectData>();
+    [SerializeField] InterstitialAdExample _interstitialAdExample;
+    [SerializeField] UIGameController _uIGameController;
     int _lengthSecondWaitQueue;
     #endregion
     private void Awake()
     {
         CreateMaxtrix();
+        _interstitialAdExample = FindObjectOfType<InterstitialAdExample>();
     }
-    private void Update()
+    private void OnEnable()
     {
-        CheckGameOver();
+        _interstitialAdExample?.LoadAd();
     }
     #region Item
 
@@ -58,7 +61,8 @@ public class WaitLineController : GameBoard<Transform, TypeWaitQueue, ObjectData
             Debug.Log("Test");
             var newIndex = At<Transform>((int)TypeWaitQueue.ReserveWaitQueue, i);
             _waitQueueSecond[i].SetTranform(newIndex);
-            _waitQueueSecond[i].ClickObjOnEnable(true);
+            var stateObj = _waitQueueSecond[i].GetState();
+            _waitQueueSecond[i].ClickObjOnEnable(stateObj);
             _waitQueueSecond[i].ObjInQueueSecond = true;
         }
     }
@@ -66,7 +70,7 @@ public class WaitLineController : GameBoard<Transform, TypeWaitQueue, ObjectData
     {
         for (int i = 0; i < _waitQueueFirst.Count; i++)
         {
-            if (_waitQueueFirst[i].label == objectData.label)
+            if (_waitQueueFirst[i].Label == objectData.Label)
             {
                 _waitQueueFirst[i] = null;
                 var objtype = _waitTypes[(int)objectData.Type].FindObjOnWaitQueue(objectData);
@@ -94,12 +98,9 @@ public class WaitLineController : GameBoard<Transform, TypeWaitQueue, ObjectData
         }
     }
 
-    private void CheckGameOver()
+    public bool CheckGameOver()
     {
-        if (_waitQueueFirst[_waitQueueFirst.Count - 1] != null)
-        {
-            Debug.Log("Gameover");
-        }
+        return (_waitQueueFirst[_waitQueueFirst.Count - 1] != null);
     }
     private void AddToWaitTypes(ObjectData objectData)
     {
@@ -111,6 +112,11 @@ public class WaitLineController : GameBoard<Transform, TypeWaitQueue, ObjectData
         UpdatePositionObjectSameType(objectData);
         CheckOutQueue();
         UpdatePositionInQueue();
+        if (CheckGameOver())
+        {
+            _uIGameController.ShowGameOver();
+            _interstitialAdExample.ShowAd();
+        }
     }
 
     private int ObjectType(ObjectData objectData)

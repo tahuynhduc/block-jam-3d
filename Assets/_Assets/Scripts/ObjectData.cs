@@ -7,32 +7,33 @@ public class ObjectData : Element<Transform, ElementType, ObjectData>
 {
     #region private
     [SerializeField] ElementType _elementType;
-    [SerializeField] bool _selectable;
+    [SerializeField] bool selected;
     [SerializeField] GameObject[] _stateObj;
     GameBoardController gameBoard => FindObjectOfType<GameBoardController>();
-    bool _objInQueueSecond;
+    private int _label;
     #endregion
+    #region public
     public ElementType Type { get => _elementType; set => _elementType = value; }
-    public bool Selectable { get => _selectable; set => _selectable = value; }
-    public bool ObjInQueueSecond { get => _objInQueueSecond; set => _objInQueueSecond = value; }
-
-    public int label;
+    public int Label { get => _label; }
+    public bool ObjInQueueSecond;
+    public bool isMatching;
+    #endregion
     private void Start()
     {
-        label = GetVerticeLabel(Index);
+        _label = GetVerticeLabel(Index);
     }
-
     private void OnMouseDown()
     {
-        if (!Selectable)
+        if (!selected)
             return;
         MoveToQueue();
     }
     private void MoveToQueue()
     {
+        ClickObjOnEnable(!selected);
+        SetIndexElementType(ElementType.None);
         gameBoard.SetStateObjOnMatrix(this, ObjInQueueSecond);
     }
-    public bool isMatching;
     public void DoMatching(bool state)
     {
         isMatching = state;
@@ -42,9 +43,13 @@ public class ObjectData : Element<Transform, ElementType, ObjectData>
     {
         GetComponent<Collider>().enabled = state;
     }
+    public bool GetState()
+    {
+        return selected;
+    }
     public void SetState(bool selectable)
     {
-        Selectable = selectable;
+        selected = selectable;
         _stateObj[0].SetActive(selectable);
         _stateObj[1].SetActive(!selectable);
     }
@@ -52,7 +57,6 @@ public class ObjectData : Element<Transform, ElementType, ObjectData>
     {
         return matrixIndex.Row * Column + matrixIndex.Column;
     }
-
     public void SetTranform(Transform transMatrix)
     {
         transform.position = transMatrix.position;
