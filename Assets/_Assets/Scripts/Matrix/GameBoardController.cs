@@ -13,13 +13,15 @@ public class GameBoardController : GameBoard<Transform, ElementType, ObjectData>
     DijkstraAlgorithm _graph;
     WaitLineController _waitQueue;
     List<int> lastLine;
-    int _countObj;
+    [SerializeField] int[] _lengthObjOnMap;
+    int count;
     int nearestDestination;
     List<ObjectData> _restoreObjPosition = new List<ObjectData>();
     [SerializeField] GameConfig _gameConfig;
     public static int level;
     public static int map;
     [SerializeField] UIGameController _uiGameController;
+    [SerializeField] float _speedWalking;
     #endregion
     #region property
     public WaitLineController WaitQueue
@@ -35,9 +37,9 @@ public class GameBoardController : GameBoard<Transform, ElementType, ObjectData>
     private void Awake()
     {
         _graph = new DijkstraAlgorithm(LenghtGraph());
-        _gameConfig.SetLevel();
-        var matrix = _gameConfig.GetLevelCurrent(1, 1);
-        CreateDic(matrix);
+        //_gameConfig?.SetLevel();
+        //var matrix = _gameConfig?.GetLevelCurrent(1, 1);
+        CreateDic();
         InstanLastLine();
         InitGraph();
     }
@@ -47,6 +49,7 @@ public class GameBoardController : GameBoard<Transform, ElementType, ObjectData>
         if (objInQueueSecond)
         {
             WaitQueue.Add(obj);
+            obj.SetAnimation("State", 0);
             return;
         }
         _restoreObjPosition.Add(obj);
@@ -56,17 +59,21 @@ public class GameBoardController : GameBoard<Transform, ElementType, ObjectData>
     #region Logic Game
     private void CheckWinGame()
     {
-        _countObj++;
-        if (_countObj >= 18)
+        count++;
+        if (map == _lengthObjOnMap.Length - 1 && count >= _lengthObjOnMap[map])
         {
-            map += 1;
-            if (map >= 3)
+            _uiGameController.ShowVictory();
+            map = 0;
+            return;
+        }
+        for (int i = 0; i < _lengthObjOnMap.Length; i++)
+        {
+            if (count >= _lengthObjOnMap[map])
             {
-                _uiGameController.ShowVictory();
-                map = 0;
+                map++;
+                SceneController.LoadScene("GamePlayScene");
                 return;
             }
-            SceneController.LoadScene("GamePlayScene");
         }
     }
     #endregion
@@ -157,11 +164,13 @@ public class GameBoardController : GameBoard<Transform, ElementType, ObjectData>
         for (int i = 0; i < path.Count; i++)
         {
             var getIndex = GetMatrixIndex(path[i]);
+            obj.UpdateObjRotation(getIndex);
             var trans = At<Transform>(getIndex);
-            obj.transform.position = trans.position;
-            yield return new WaitForSeconds(0.1f);
+            obj.SetNewTranformPosition(trans);
+            yield return new WaitForSeconds(_speedWalking);
         }
         WaitQueue.Add(obj);
+        obj.SetAnimation("State", 0);
     }
     private void ShowStateObj()
     {

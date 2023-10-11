@@ -55,20 +55,19 @@ public class LifeData
     }
     public void SaveData()
     {
-        QuickSaveWriter writer = QuickSaveWriter.Create("LifeData");
-        writer.Write("LifeUser", _lifeUser);
-        writer.Write("time", time);
-        writer.Write("maxLife", maxLife);
-        writer.Write("minLife", minLife);
-        writer.Commit();
+        //QuickSaveWriter writer = QuickSaveWriter.Create("LifeData");
+        //writer.Write("LifeUser", _lifeUser);
+        //writer.Write("time", time);
+        //writer.Write("maxLife", maxLife);
+        //writer.Write("minLife", minLife);
+        //writer.Commit();
     }
     public void LoadData()
     {
-
-        QuickSaveReader reader = QuickSaveReader.Create("LifeData");
-        _lifeUser = reader.Read<int>("LifeUser");
-        time = reader.Read<int>("time");
-        maxLife = reader.Read<int>("maxLife");
-        minLife = reader.Read<int>("minLife");
+        //QuickSaveReader reader = QuickSaveReader.Create("LifeData");
+        //_lifeUser = reader.Read<int>("LifeUser");
+        //time = reader.Read<int>("time");
+        //maxLife = reader.Read<int>("maxLife");
+        //minLife = reader.Read<int>("minLife");
     }
 }

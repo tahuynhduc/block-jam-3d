@@ -36,7 +36,6 @@ public class GameConfig : ScriptableObject
                 log.AppendLine(test2);
             }
         }
-        Debug.Log(log);
         return levelcurrent;
     }
 }

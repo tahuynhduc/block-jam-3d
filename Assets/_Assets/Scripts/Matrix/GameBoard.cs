@@ -41,12 +41,12 @@ public class GameBoard<TTransform, TElementType, TElement> : MonoBehaviour where
         get => _elementMatrix;
         set => _elementMatrix = value;
     }
-    public void CreateDic(List<List<string>> matrix)
+    public void CreateDic()
     {
         _dictionary = new Dictionary<Type, object>();
         _dictionary.Add(typeof(TTransform), TransformMatrix);
         _dictionary.Add(typeof(TElementType), ElementTypeMatrix);
-        CreateElementMatrix(matrix);
+        CreateElementMatrix();
         _dictionary.Add(typeof(TElement), ElementMatrix);
     }
     public void CreateUI()
@@ -84,11 +84,11 @@ public class GameBoard<TTransform, TElementType, TElement> : MonoBehaviour where
                 ElementMatrix.Set(index, element);
             }
     }
-    private void CreateElementMatrix(List<List<string>> matrix)
+    private void CreateElementMatrix()
     {
-        ElementMatrix = new Matrix<TElement>(matrix.Count, matrix[0].Count);
-        for (var i = 0; i < matrix.Count; i++)
-            for (var j = 0; j < matrix[i].Count; j++)
+        ElementMatrix = new Matrix<TElement>(Row, Column);
+        for (var i = 0; i < Row; i++)
+            for (var j = 0; j < Column; j++)
             {
                 var index = new MatrixIndex(i, j);
                 var elementType = At<ElementType>(index);

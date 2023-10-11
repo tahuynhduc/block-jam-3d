@@ -15,8 +15,8 @@ public class UIHomeController : MonoBehaviour
     }
     public void SetCurrentLevel()
     {
-        GameBoardController.level = 1;
-        GameBoardController.map = 1;
+        //GameBoardController.level = 1;
+        //GameBoardController.map = 1;
     }
 }
 public enum TypeBtn
